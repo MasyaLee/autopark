@@ -63,14 +63,13 @@ class Car(Engine, threading.Thread):
             self.mileage += self.route_length
             Car.__tachograph = self.mileage
             self.count_for_util = self.utilization - Car.__tachograph
-            self.overhaul_count = self.route_length / self.max_mileage   # кол-во капремонтов
+            self.overhaul_count = self.route_length / self.max_mileage
             self.refill_count = int(self.route_length / ((self.tank_volume / self.fuel_consumption) * 100))
             if self.engine == ENGINE_TYPE_PETROL:           # extra condition
                 if self.mileage < 50000:
                     Engine.fuel_price = COST_OF_PETROL_Ai92
                 else:
                     Engine.fuel_price = COST_OF_PETROL_Ai95
-            self.money_for_fuel = (self.refill_count * self.fuel_price)  # кол-во потраченных денег
             self.money_for_fuel = (self.refill_count * self.fuel_price)
             self.money_spent = int((self.overhaul_count * self.price_overhaul) + self.money_for_fuel)
             self.distance_1000_count = self.route_length // 1000
@@ -89,7 +88,7 @@ class Car(Engine, threading.Thread):
     def info(self):
         if self.mileage < self.utilization:
             print('Mileage ' + str(self.mileage) + ' km')
-            print('Residual price of the car is %s $' % self.price)         # остаточная стоимость
+            print('Residual price of the car is %s $' % self.price)         # residual value
             print('Spent money for fuel {} $'.format(self.money_for_fuel))
             if self.refill_count == 0:
                 print('Has not been refilled')
@@ -98,10 +97,7 @@ class Car(Engine, threading.Thread):
             print('{} km until utilization'.format(self.count_for_util))
         else:
             print('The car is broken')
-            print('Mileage is exceeded {}'.format(self.utilization))        # превышен пробег
-
-    # def __repr__(self):
-    #     return self.engine + ' : ' + str(self.price) + ' : ' + str(self.count_for_util)
+            print('Mileage is exceeded {}'.format(self.utilization))
 
     def run(self):
         semaphore.acquire()
@@ -118,25 +114,13 @@ def create_cars(start_count=0, last_count=101):
     return all_cars
 
 
-# class ThreadingDrive(threading.Thread, Car):
-#     def __init__(self):
-#         threading.Thread.__init__(self)
-#         Car.__init__(self)
-#
-#     def run(self):
-#         Car.drive(self)
-#         print('-' * 80)                            # p1 = ThreadingDrive()
-#         Car.info(self)                             # p1.start()
-#
-#         print(threading.active_count())
 if __name__ == '__main__':
     semaphore = threading.BoundedSemaphore(10)
     my_cars = create_cars()
     for _ in my_cars:
         _.start()
 
-    # car = ThreadingDrive()
-    # car.start()
+
 
 
 
