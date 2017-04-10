@@ -3,10 +3,10 @@ from define_components import DefineComponents
 from park import *
 
 
-class Engine(Cons, object):
+class Engine(Cons):
     def __init__(self):
         self.engine = DefineComponents.define_engine_type(len(Car.all_cars))
-        if self.engine == 'petrol':
+        if self.engine == Cons.ENGINE_TYPE_PETROL:
             self.max_mileage = Cons.PETROL_MAX_MILEAGE
             self.fuel_consumption = Cons.PETROL_FUEL_CONSUMPTION
             self.fuel_price = Cons.COST_OF_PETROL_Ai92
