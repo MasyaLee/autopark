@@ -5,6 +5,7 @@ from park import *
 
 class Engine(Cons):
     def __init__(self):
+        super(Engine, self).__init__()
         self.engine = DefineComponents.define_engine_type(len(Car.all_cars))
         if self.engine == Cons.ENGINE_TYPE_PETROL:
             self.max_mileage = Cons.PETROL_MAX_MILEAGE

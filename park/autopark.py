@@ -12,7 +12,6 @@ class Car(Engine, threading.Thread):
 
     def __init__(self):
         super(Car, self).__init__()
-        threading.Thread.__init__(self)
         self.tank_volume = DefineComponents.define_tank_volume(len(Car.all_cars))
         self.price = Cons.INITIAL_CARS_PRICE
         self.mileage = Cons.INITIAL_CARS_MILEAGE
